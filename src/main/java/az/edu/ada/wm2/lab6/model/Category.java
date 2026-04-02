@@ -3,8 +3,6 @@ package az.edu.ada.wm2.lab6.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,32 +12,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
+@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
+public class Category {
     @Id
     @GeneratedValue
     private UUID id;
-    private String productName;
-    private BigDecimal price;
-    private LocalDate expirationDate;
-    @ManyToMany
-    @JoinTable(
-            name = "product_categories",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
+
+    private String name;
+
+    @ManyToMany(mappedBy = "categories")
     @Default
-    private Set<Category> categories = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 }
