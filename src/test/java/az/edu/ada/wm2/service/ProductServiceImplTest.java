@@ -200,6 +200,8 @@ class ProductServiceImplTest {
                 .price(BigDecimal.valueOf(-5))
                 .build();
 
+        when(productRepository.findById(id)).thenReturn(Optional.of(existing));
+
         assertThrows(IllegalArgumentException.class,
                 () -> productService.updateProduct(id, dto));
     }
